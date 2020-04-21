@@ -3,7 +3,9 @@ package com.github.gongfuboy.leetcode.easy;
 import java.util.HashMap;
 
 /**
- * Created by ZhouLiMing on 2020/4/21.
+ * 两数之和
+ *
+ * Created by GongFuBoy on 2020/4/21.
  */
 public class Solution1 {
 
