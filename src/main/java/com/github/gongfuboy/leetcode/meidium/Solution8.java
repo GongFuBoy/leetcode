@@ -8,7 +8,6 @@ public class Solution8 {
 
     public int myAtoi(String str) {
         long tempResult = 0;
-        int result = 0;
 
         // 首先处理str前后空格
         String trim = str.trim();
