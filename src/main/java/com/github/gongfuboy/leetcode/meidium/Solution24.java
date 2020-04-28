@@ -20,11 +20,10 @@ public class Solution24 {
         if (head == null) return null;
         if (head.next == null) return head;
 
-        ListNode firstNode = head;
         ListNode secondNode = head.next;
 
-        firstNode.next = swapPairs(secondNode.next);
-        secondNode.next = firstNode;
+        head.next = swapPairs(secondNode.next);
+        secondNode.next = head;
 
         return secondNode;
 
