@@ -8,7 +8,7 @@ import java.util.Map;
 public class Solution49 {
 
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String, List<String>> map = new HashMap<String, List<String>>();
+        Map<String, List<String>> map = new HashMap<>();
 
         for (String str : strs) {
             int[] temp = new int[26];
