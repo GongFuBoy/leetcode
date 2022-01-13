@@ -1,31 +1,34 @@
 package com.github.gongfuboy.leetcode.offer;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import sun.nio.cs.ArrayEncoder;
 
 public class Offer13 {
 
-    public int movingCount(int m, int n, int k) {
-        boolean[][] visited = new boolean[m][n];
-        int result = 0;
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{0, 0, 0, 0});
-        while (queue.size() > 0) {
-            int[] element = queue.poll();
-            int i = element[0];
-            int j = element[1];
-            int si = element[2];
-            int sj = element[3];
-            if (i >= m || j >= n || visited[i][j] || si + sj > k) {
-                continue;
-            }
-            visited[i][j] = true;
-            result++;
-            queue.add(new int[]{i, j + 1, si, (j + 1) % 10 != 0 ? sj + 1 : sj - 8});
-            queue.add(new int[]{i + 1, j, (i + 1) % 10 != 0 ? si + 1 : si - 8 , sj});
-        }
+    private boolean[][] visited;
 
+
+    public int movingCount(int m, int n, int k) {
+        visited = new boolean[m][n];
+        return dfs(0, 0, m, n, k);
+    }
+
+    private int sum(int target) {
+        int result = 0;
+        while (target != 0) {
+            result += target % 10;
+            target = target / 10;
+        }
         return result;
+    }
+
+
+
+    private int dfs(int x, int y, int m, int n, int k) {
+        if (x >= m || y >= n || visited[x][y] || sum(x) + sum(y) > k) {
+            return 0;
+        }
+        visited[x][y] = true;
+        return 1 + dfs(x + 1, y, m, n, k) + dfs(x, y + 1, m, n, k);
     }
 
 }
