@@ -3,24 +3,15 @@ package com.github.gongfuboy.leetcode.offer;
 public class Offer14_1 {
 
     public int cuttingRope(int n) {
-        int[] result = new int[n + 1];
+        long[] result = new long[n + 1];
         result[2] = 1;
-        return function(result, n);
+        for (int i = 3; i < n + 1; i++) {
+            for (int j = 2; j < i; j++) {
+                result[i] = Math.max(result[i], Math.max(j * (i - j), j * result[i - j]));
+            }
+        }
+        return (int) (result[n] % 1000000007);
     }
 
-    private int function(int[] result, int n) {
-        if (result[n] != 0) {
-            return result[n];
-        }
-
-        int maxNum = 0;
-        for (int i = 2; i < n; i++) {
-            maxNum = Math.max(maxNum, Math.max(i * function(result, n - i), i * (n - i)));
-        }
-
-        result[n] = maxNum;
-        return result[n];
-
-    }
 
 }
