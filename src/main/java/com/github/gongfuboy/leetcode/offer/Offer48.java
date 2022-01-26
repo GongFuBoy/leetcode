@@ -9,17 +9,29 @@ public class Offer48 {
             return 0;
         }
 
-        char[] chars = s.toCharArray();
-        int j = -1, res = 0;
-        HashMap<Character, Integer> charAndIndexHashMap = new HashMap<>();
-        for (int i = 0; i < chars.length; i++) {
-            if (charAndIndexHashMap.containsKey(chars[i])) {
-                j = Math.max(j, charAndIndexHashMap.get(chars[i]));
+        int startIndex = 0;
+        int endIndex = 0;
+        int result = 1;
+        HashMap<Character, Integer> charAndIndexMap = new HashMap<>();
+        while (endIndex < s.length()) {
+            Integer endIndexChar = charAndIndexMap.get(s.charAt(endIndex));
+            if (endIndexChar == null || endIndexChar < startIndex) {
+                int newResultCharLength = endIndex - startIndex + 1;
+                result = Math.max(result, newResultCharLength);
+            } else {
+                startIndex = endIndex + 1;
             }
-            charAndIndexHashMap.put(chars[i], i);
-            res = Math.max(res, i - j);
+            charAndIndexMap.put(s.charAt(endIndex), endIndex);
+            endIndex++;
         }
-        return res;
+
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+        Offer48 offer48 = new Offer48();
+        System.out.println(offer48.lengthOfLongestSubstring("pwwkew"));
     }
 
 }
