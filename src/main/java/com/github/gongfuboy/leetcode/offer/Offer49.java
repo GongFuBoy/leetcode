@@ -11,7 +11,7 @@ public class Offer49 {
         PriorityQueue<Long> minStack = new PriorityQueue<>(Comparator.comparingLong(o -> o));
         int result = 1;
         int firstUglyNumber = 1;
-        distinctSet.add(Long.valueOf(firstUglyNumber));
+        distinctSet.add((long) firstUglyNumber);
         minStack.add((long) firstUglyNumber);
         for (int i = 0; i < n; i++) {
             result = Math.toIntExact(minStack.poll());
