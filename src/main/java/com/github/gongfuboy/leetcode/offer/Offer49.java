@@ -1,30 +1,43 @@
 package com.github.gongfuboy.leetcode.offer;
 
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+
 public class Offer49 {
 
     public int nthUglyNumber(int n) {
-        int[] allResult = new int[n];
-        allResult[0] = 1;
-        int a = 0;
-        int b = 0;
-        int c = 0;
-
-        for (int i = 1; i < allResult.length; i++) {
-            int uglyANum = 2 * allResult[a];
-            int uglyBNum = 3 * allResult[b];
-            int uglyCNum = 5 * allResult[c];
-            allResult[i] = Math.min(Math.min(uglyANum, uglyBNum), uglyCNum);
-            if (allResult[i] == uglyANum) {
-                a++;
+        HashSet<Long> distinctSet = new HashSet<>();
+        PriorityQueue<Long> minStack = new PriorityQueue<>(Comparator.comparingLong(o -> o));
+        int result = 1;
+        int firstUglyNumber = 1;
+        distinctSet.add(Long.valueOf(firstUglyNumber));
+        minStack.add((long) firstUglyNumber);
+        for (int i = 0; i < n; i++) {
+            result = Math.toIntExact(minStack.poll());
+            Long t2 = result * 2L;
+            Long t3 = result * 3L;
+            Long t5 = result * 5L;
+            if (!distinctSet.contains(t2)) {
+                minStack.add(t2);
+                distinctSet.add(t2);
             }
-            if (allResult[i] == uglyBNum) {
-                b++;
+            if (!distinctSet.contains(t3)) {
+                minStack.add(t3);
+                distinctSet.add(t3);
             }
-            if (allResult[i] == uglyCNum) {
-                c++;
+            if (!distinctSet.contains(t5)) {
+                minStack.add(t5);
+                distinctSet.add(t5);
             }
         }
-        return allResult[n - 1];
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+        Offer49 offer49 = new Offer49();
+        System.out.println(offer49.nthUglyNumber(10));
     }
 
 }
